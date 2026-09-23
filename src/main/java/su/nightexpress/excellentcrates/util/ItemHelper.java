@@ -1,5 +1,6 @@
 package su.nightexpress.excellentcrates.util;
 
+import de.kalypzo.excrextension.craftengine.CraftEngineIntegration;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import su.nightexpress.nightcore.bridge.item.AdaptedItem;
@@ -25,6 +26,8 @@ public class ItemHelper {
 
     @NotNull
     public static Optional<AdaptedItem> read(@NotNull FileConfig config, @NotNull String path) {
+        CraftEngineIntegration.ensureRegistered();
+
         String oldType = config.getString(path + ".Type");
         if (oldType != null) {
             AdaptedItem adaptedItem = null;
@@ -79,6 +82,8 @@ public class ItemHelper {
     }
 
     public static boolean isCustom(@NotNull ItemStack itemStack) {
+        CraftEngineIntegration.ensureRegistered();
+
         ItemAdapter<?> adapter = ItemBridge.getAdapter(itemStack);
         return adapter != null && !adapter.isVanilla();
     }
@@ -90,6 +95,8 @@ public class ItemHelper {
 
     @NotNull
     public static AdaptedItem adapt(@NotNull ItemStack itemStack) {
+        CraftEngineIntegration.ensureRegistered();
+
         ItemAdapter<?> adapter = ItemBridge.getAdapterOrVanilla(itemStack);
         AdaptedItem item = adapter.adapt(itemStack).orElse(null);
         return item == null ? vanilla(itemStack) : item;

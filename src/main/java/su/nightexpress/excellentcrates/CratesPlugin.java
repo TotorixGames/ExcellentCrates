@@ -1,5 +1,6 @@
 package su.nightexpress.excellentcrates;
 
+import de.kalypzo.excrextension.craftengine.CraftEngineIntegration;
 import org.jetbrains.annotations.NotNull;
 import su.nightexpress.excellentcrates.api.addon.CratesAddon;
 import su.nightexpress.excellentcrates.command.BaseCommands;
@@ -78,6 +79,8 @@ public class CratesPlugin extends NightPlugin {
 
     @Override
     public void enable() {
+        CraftEngineIntegration.setup(this);
+
         this.crateLogger = new CrateLogger(this);
         this.dialogRegistry = new DialogRegistry(this);
 
@@ -150,6 +153,7 @@ public class CratesPlugin extends NightPlugin {
 
         CratesRegistries.clear();
         ProviderRegistry.clear();
+        CraftEngineIntegration.clear();
     }
 
     @Override
